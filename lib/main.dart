@@ -10,16 +10,85 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Quiz',
+      title: 'LSU Scavenger Hunt',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
         useMaterial3: true,
       ),
-      home: const QuizScreen(),
+      home: const WelcomeScreen(),
     );
   }
 }
 
+// Welcome Screen
+class WelcomeScreen extends StatelessWidget {
+  const WelcomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('LSU Scavenger Hunt')),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              "Welcome to the LSU Scavenger Hunt",
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const IntroScreen()),
+                );
+              },
+              child: const Text("Next"),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// Intro Screen
+class IntroScreen extends StatelessWidget {
+  const IntroScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Get Ready!')),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              "Time to see how well you know your way around the PFT.",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const QuizScreen()),
+                );
+              },
+              child: const Text("Play"),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// Quiz Screen
 class QuizScreen extends StatelessWidget {
   const QuizScreen({super.key});
 
@@ -37,7 +106,7 @@ class QuizScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Quiz  Question'),
+        title: const Text('Quiz Question'),
       ),
       body: Center(
         child: Column(
@@ -74,6 +143,7 @@ class QuizScreen extends StatelessWidget {
   }
 }
 
+// Hurray Screen
 class HurrayScreen extends StatelessWidget {
   const HurrayScreen({super.key});
 
@@ -91,6 +161,7 @@ class HurrayScreen extends StatelessWidget {
   }
 }
 
+// Oops Screen
 class OopsScreen extends StatelessWidget {
   const OopsScreen({super.key});
 
@@ -107,6 +178,7 @@ class OopsScreen extends StatelessWidget {
     );
   }
 }
+
 
 
 class MyHomePage extends StatefulWidget {
