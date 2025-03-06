@@ -37,7 +37,7 @@ class QuizScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Quiz Question'),
+        title: const Text('Quiz  Question'),
       ),
       body: Center(
         child: Column(
