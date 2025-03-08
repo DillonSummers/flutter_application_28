@@ -67,7 +67,7 @@ class IntroScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              "Time to see how well you know your way around the PFT.",
+              "Time to see how well you know the PFT!",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
@@ -76,7 +76,7 @@ class IntroScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const QuizScreen()),
+                  MaterialPageRoute(builder: (context) => const QuizScreen(questionIndex: 0)),
                 );
               },
               child: const Text("Play"),
