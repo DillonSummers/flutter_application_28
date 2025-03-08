@@ -114,7 +114,7 @@ const List<Map<String, dynamic>> quizQuestions = [
     "question": "What is inside room 2215?",
     "options": [ "A robotics lab", "A computer lab", "A crash test car", "An engineering workshop"],
     "correct": "A crash test car"
-  }
+  },
   {
     "question": "How many computers are in room 2241?",
     "options": ["48", "50", "49", "51"],
