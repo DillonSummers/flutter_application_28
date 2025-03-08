@@ -220,6 +220,24 @@ class ResultScreen extends StatelessWidget {
   }
 }
 
+// Congratulations Screen
+class CongratsScreen extends StatelessWidget {
+  const CongratsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("You Did It!")),
+      body: const Center(
+        child: Text(
+          "🎉 Congratulations! You completed the LSU Scavenger Hunt! 🎉",
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
+  }
+}
 
 // Hurray Screen
 class HurrayScreen extends StatelessWidget {
