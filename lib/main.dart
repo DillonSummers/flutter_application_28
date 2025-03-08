@@ -107,7 +107,7 @@ const List<Map<String, dynamic>> quizQuestions = [
   },
   {
     "question": "What does it say on the left door of the Chevron center?",
-    "options": ["Welcome Engineers", "Innovation Hub", "Future Tigers"],
+    "options": ["Welcome Engineers", "Innovation Hub", "Geaux Communicate", "Future Tigers"],
     "correct": "Geaux Communicate"
   },
   {
