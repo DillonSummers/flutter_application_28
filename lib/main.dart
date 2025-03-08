@@ -105,6 +105,11 @@ const List<Map<String, dynamic>> quizQuestions = [
     "options": ["1100", "1200", "2100", "3100"],
     "correct": "1100"
   },
+  {
+    "question": "What does it say on the left door of the Chevron center?",
+    "options": ["Geaux Communicate", "Welcome Engineers", "Innovation Hub", "Future Tigers"],
+    "correct": "Geaux Communicate"
+  },
 // Quiz Screen
 class QuizScreen extends StatelessWidget {
   const QuizScreen({super.key});
