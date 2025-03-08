@@ -115,6 +115,31 @@ const List<Map<String, dynamic>> quizQuestions = [
     "options": [ "A robotics lab", "A computer lab", "A crash test car", "An engineering workshop"],
     "correct": "A crash test car"
   }
+  {
+    "question": "How many computers are in room 2241?",
+    "options": ["48", "50", "49", "51"],
+    "correct": "51"
+  },
+  {
+    "question": "What floor is the suite for the college of engineering and computer science?",
+    "options": ["3rd floor", "2nd floor", "1st floor", "4th floor"],
+    "correct": "3rd floor"
+  },
+  {
+    "question": "Where is the Dr. William A. Brookshire Student Service Office?",
+    "options": ["behind the big stairs", "In front of the big stairs", "on the roof", "next to the entrance"],
+    "correct": "In front of the big stairs"
+  },
+  {
+    "question": "Which zone has the Dean’s suite of the PFT?",
+    "options": ["Zone 1100", "Zone 1300", "Zone 1200", "Zone 1400"],
+    "correct": "Zone 1200"
+  },
+  {
+    "question": "What year does the TAU BETA PI statue say it was made?",
+    "options": [ "1956", "1942", "2025", "1936"],
+    "correct": "A crash test car"
+  }
 ];
 
 // Quiz Screen
