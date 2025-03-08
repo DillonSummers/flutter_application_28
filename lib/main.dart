@@ -137,31 +137,38 @@ class QuizScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final questionData = quizQuestions[questionIndex];
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Quiz Question'),
-      ),
+      appBar: AppBar(title: Text('Question ${questionIndex + 1}')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Padding(
-              padding: EdgeInsets.all(16.0),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
               child: Text(
-                "What does the banner say by the stairs?",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                questionData["question"],
+                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
             ),
-            _buildAnswerButton(context, "Hello", false),
-            _buildAnswerButton(context, "Happy", false),
-            _buildAnswerButton(context, "Tiger", true),
-            _buildAnswerButton(context, "Llama", false),
+            for (String option in questionData["options"])
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 5.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    _navigateToResult(context, option == questionData["correct"]);
+                  },
+                  child: Text(option),
+                ),
+              ),
           ],
         ),
       ),
     );
   }
+}
 
   Widget _buildAnswerButton(BuildContext context, String answer, bool isCorrect) {
     return Padding(
