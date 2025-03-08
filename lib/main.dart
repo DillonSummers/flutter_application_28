@@ -95,7 +95,7 @@ const List<Map<String, dynamic>> quizQuestions = [
     "options": ["College of Engineering", "Geaux Tigers", "Welcome to LSU", "Innovation Hub"],
     "correct": "College of Engineering"
   },
-    {
+  {
     "question": "What is the first option listed on the Panera Bread sandwich menu in the PFT?",
     "options": ["Grilled Chicken Sandwich with Avocado", "Turkey Club", "BLT", "Roast Beef Sandwich"],
     "correct": "Grilled Chicken Sandwich with Avocado"
@@ -110,7 +110,7 @@ const List<Map<String, dynamic>> quizQuestions = [
     "options": ["Geaux Communicate", "Welcome Engineers", "Innovation Hub", "Future Tigers"],
     "correct": "Geaux Communicate"
   },
-   {
+  {
     "question": "What is inside room 2215?",
     "options": ["A crash test car", "A robotics lab", "A computer lab", "An engineering workshop"],
     "correct": "A crash test car"
@@ -170,7 +170,7 @@ class QuizScreen extends StatelessWidget {
   }
 }
 
- // Result Screen
+// Result Screen
 class ResultScreen extends StatelessWidget {
   final bool isCorrect;
   final int questionIndex;
@@ -238,44 +238,6 @@ class CongratsScreen extends StatelessWidget {
     );
   }
 }
-
-// Hurray Screen
-class HurrayScreen extends StatelessWidget {
-  const HurrayScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Result")),
-      body: const Center(
-        child: Text(
-          "Hurray! 🎉",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        ),
-      ),
-    );
-  }
-}
-
-// Oops Screen
-class OopsScreen extends StatelessWidget {
-  const OopsScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Result")),
-      body: const Center(
-        child: Text(
-          "Oops, try again! ❌",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        ),
-      ),
-    );
-  }
-}
-
-
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
