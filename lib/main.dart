@@ -116,6 +116,7 @@ const List<Map<String, dynamic>> quizQuestions = [
     "correct": "A crash test car"
   }
 ];
+
 // Quiz Screen
 class QuizScreen extends StatelessWidget {
   const QuizScreen({super.key});
