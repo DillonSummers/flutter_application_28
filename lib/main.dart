@@ -97,7 +97,7 @@ const List<Map<String, dynamic>> quizQuestions = [
   },
   {
     "question": "What is the first option listed on the Panera Bread sandwich menu in the PFT?",
-    "options": [ "Turkey Club", "BLT", "Roast Beef Sandwich"],
+    "options": ["Turkey Club", "BLT", "Roast Beef Sandwich", "Grilled Chicken Sandwich with Avocado"],
     "correct": "Grilled Chicken Sandwich with Avocado"
   },
   {
@@ -107,7 +107,7 @@ const List<Map<String, dynamic>> quizQuestions = [
   },
   {
     "question": "What does it say on the left door of the Chevron center?",
-    "options": ["Geaux Communicate", "Welcome Engineers", "Innovation Hub", "Future Tigers"],
+    "options": ["Welcome Engineers", "Innovation Hub", "Future Tigers"],
     "correct": "Geaux Communicate"
   },
   {
