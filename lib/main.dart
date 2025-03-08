@@ -95,7 +95,11 @@ const List<Map<String, dynamic>> quizQuestions = [
     "options": ["College of Engineering", "Geaux Tigers", "Welcome to LSU", "Innovation Hub"],
     "correct": "College of Engineering"
   },
-  
+    {
+    "question": "What is the first option listed on the Panera Bread sandwich menu in the PFT?",
+    "options": ["Grilled Chicken Sandwich with Avocado", "Turkey Club", "BLT", "Roast Beef Sandwich"],
+    "correct": "Grilled Chicken Sandwich with Avocado"
+  },
 // Quiz Screen
 class QuizScreen extends StatelessWidget {
   const QuizScreen({super.key});
