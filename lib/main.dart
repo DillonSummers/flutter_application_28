@@ -102,7 +102,7 @@ const List<Map<String, dynamic>> quizQuestions = [
   },
   {
     "question": "What is the room number for the Roy Marrin Auditorium?",
-    "options": ["1100", "1200", "2100", "3100"],
+    "options": [ "1200", "2100", "3100"],
     "correct": "1100"
   },
   {
