@@ -100,6 +100,11 @@ const List<Map<String, dynamic>> quizQuestions = [
     "options": ["Grilled Chicken Sandwich with Avocado", "Turkey Club", "BLT", "Roast Beef Sandwich"],
     "correct": "Grilled Chicken Sandwich with Avocado"
   },
+  {
+    "question": "What is the room number for the Roy Marrin Auditorium?",
+    "options": ["1100", "1200", "2100", "3100"],
+    "correct": "1100"
+  },
 // Quiz Screen
 class QuizScreen extends StatelessWidget {
   const QuizScreen({super.key});
