@@ -119,14 +119,18 @@ const List<Map<String, dynamic>> quizQuestions = [
 
 // Quiz Screen
 class QuizScreen extends StatelessWidget {
-  const QuizScreen({super.key});
+  final int questionIndex;
+
+  const QuizScreen({super.key, required this.questionIndex});
 
   void _navigateToResult(BuildContext context, bool isCorrect) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>
-            isCorrect ? const HurrayScreen() : const OopsScreen(),
+        builder: (context) => ResultScreen(
+          isCorrect: isCorrect,
+          questionIndex: questionIndex,
+        ),
       ),
     );
   }
