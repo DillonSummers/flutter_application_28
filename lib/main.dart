@@ -138,7 +138,7 @@ const List<Map<String, dynamic>> quizQuestions = [
   {
     "question": "What year does the TAU BETA PI statue say it was made?",
     "options": [ "1956", "1942", "2025", "1936"],
-    "correct": "A crash test car"
+    "correct": "1936"
   }
 ];
 
