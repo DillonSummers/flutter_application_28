@@ -170,18 +170,56 @@ class QuizScreen extends StatelessWidget {
   }
 }
 
-  Widget _buildAnswerButton(BuildContext context, String answer, bool isCorrect) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: ElevatedButton(
-        onPressed: () {
-          _navigateToResult(context, isCorrect);
-        },
-        child: Text(answer),
+ // Result Screen
+class ResultScreen extends StatelessWidget {
+  final bool isCorrect;
+  final int questionIndex;
+
+  const ResultScreen({super.key, required this.isCorrect, required this.questionIndex});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(isCorrect ? "Hurray!" : "Oops, Try Again!")),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              isCorrect ? "🎉 Hurray! You got it right! 🎉" : "❌ Oops, try again! ❌",
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                if (isCorrect) {
+                  if (questionIndex < quizQuestions.length - 1) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => QuizScreen(questionIndex: questionIndex + 1),
+                      ),
+                    );
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const CongratsScreen()),
+                    );
+                  }
+                } else {
+                  Navigator.pop(context);
+                }
+              },
+              child: Text(isCorrect ? "Next" : "Back"),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
+
 
 // Hurray Screen
 class HurrayScreen extends StatelessWidget {
