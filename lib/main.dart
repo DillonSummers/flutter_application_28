@@ -88,6 +88,14 @@ class IntroScreen extends StatelessWidget {
   }
 }
 
+// List of questions & answers
+const List<Map<String, dynamic>> quizQuestions = [
+  {
+    "question": "What do the Banners by the big stairs say?",
+    "options": ["College of Engineering", "Geaux Tigers", "Welcome to LSU", "Innovation Hub"],
+    "correct": "College of Engineering"
+  },
+  
 // Quiz Screen
 class QuizScreen extends StatelessWidget {
   const QuizScreen({super.key});
