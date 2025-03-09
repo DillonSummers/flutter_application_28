@@ -31,7 +31,7 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Scavenger Hunt')),
+      appBar: AppBar(title: const Text('Scavenger Hunt: with Correct/wrong Sound Track')),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -44,7 +44,7 @@ class WelcomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text(
-                "Welcome to the LSU Scavenger Hunt",
+                "🎤Welcome to the LSU Scavenger Hunt🎤",
                 style: TextStyle(
                   fontSize: 70,
                   fontWeight: FontWeight.bold,
@@ -314,7 +314,7 @@ class QuizScreen extends StatefulWidget
 
   void _startTimer() 
   {
-    _timer = Timer.periodic(const Duration(seconds: 10), (timer) 
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) 
     {
       if (timeLeft > 0) 
       {
@@ -337,7 +337,7 @@ class QuizScreen extends StatefulWidget
  
   }
 
-  void _goToNextScreen(bool won) 
+  void _goToNextScreen(bool won) async
   {
     _timer?.cancel();
     int newScore = won ? widget.score + 10 : widget.score;
@@ -347,6 +347,11 @@ class QuizScreen extends StatefulWidget
     } else {
       playSound('sounds/wrong.mp3'); 
     }
+
+    await Future.delayed(Duration(seconds: 2)); // Delay for sound to play
+
+    if (!mounted) return; // Check if the widget is still mounted
+
 
     if (widget.questionIndex < quizQuestions.length - 1) 
     {
@@ -459,6 +464,7 @@ class ResultScreen extends StatelessWidget
   {
     return Scaffold(
       appBar: AppBar(title: const Text("Game Over!")),
+      backgroundColor: const Color.fromARGB(255, 211, 115, 227),
       body: Center
       (
         child: Column
