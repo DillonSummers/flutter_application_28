@@ -7,6 +7,7 @@ void main() {
   runApp(const MyApp());
 }
 
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -85,6 +86,8 @@ class WelcomeScreen extends StatelessWidget {
   }
 }
 
+
+
 //map
 class Mapscreen extends StatelessWidget{
   const Mapscreen({super.key});
@@ -104,6 +107,8 @@ class Mapscreen extends StatelessWidget{
 }
 }
 
+
+
 // Intro Screen
 class IntroScreen extends StatelessWidget {
   const IntroScreen({super.key});
@@ -116,7 +121,7 @@ class IntroScreen extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/pft1.jpg"),
-            fit: BoxFit.cover, // Adjusts the image to fill the screen
+            fit: BoxFit.cover, 
           ),
         ),
       child: Center(
@@ -150,6 +155,8 @@ class IntroScreen extends StatelessWidget {
   }
 }
 
+
+//questions
 const List<Map<String, dynamic>> quizQuestions = [
   {
     "question": "Can you find the dark purple chair?",
@@ -186,6 +193,7 @@ const List<Map<String, dynamic>> quizQuestions = [
     "targetPosition": {"left": 600.0, "top": 250.0, "width": 200.0, "height": 200.0}
   }
 ];
+
 
 // Quiz Screen
 class QuizScreen extends StatefulWidget {
@@ -277,6 +285,7 @@ class QuizScreen extends StatefulWidget {
       );
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
