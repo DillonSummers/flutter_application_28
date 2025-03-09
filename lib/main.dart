@@ -78,6 +78,21 @@ class WelcomeScreen extends StatelessWidget {
                 fontSize: 27,
               ),),
             ),
+
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Helpscreen()),
+                );
+              },
+              child: const Text("Instruction",
+              style: TextStyle(
+                fontSize: 27,
+              ),),
+            ),
+            
           ],
         ),
       ),
@@ -85,6 +100,54 @@ class WelcomeScreen extends StatelessWidget {
     );
   }
 }
+
+class Helpscreen extends StatelessWidget{
+
+    const Helpscreen({super.key});
+
+    @override
+    Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Instruction')),
+      backgroundColor: const Color.fromARGB(255, 231, 170, 241),
+    body: Padding(
+        padding: const EdgeInsets.all(16.0),  
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,  
+          children: const [
+            Text(
+              'Welcome to the game! Here are some instructions to get you started:',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 20),  // Adds spacing between texts
+            Text(
+              '1. Time limits is 10 seconds per level once you start the scavenger hunt.',
+              style: TextStyle(fontSize: 16),
+            ),
+            Text(
+              '2. You will win 10 scores if you find the hidden object.',
+              style: TextStyle(fontSize: 16),
+            ),
+            Text(
+              '3. The sound will tell if it the correct object.',
+              style: TextStyle(fontSize: 16),
+            ),
+            Text(
+              '4. Perfect score is 60!',
+              style: TextStyle(fontSize: 16),
+            ),
+            SizedBox(height: 20),
+            Text(
+              'Good luck and have fun!',
+              style: TextStyle(fontSize: 18, fontStyle: FontStyle.italic),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 
 
 
