@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
+import 'package:audioplayers/audioplayers.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -69,7 +72,7 @@ class WelcomeScreen extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => const Mapscreen()),
                 );
               },
-              child: const Text("Pft Map",
+              child: const Text("PFT Map",
               style: TextStyle(
                 fontSize: 27,
               ),),
@@ -121,9 +124,9 @@ class IntroScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              "Time to see how well you know the PFT!",
+              "Let's start to discover more about PFT!",
               style: TextStyle(
-                fontSize: 60, 
+                fontSize: 70, 
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
                 ),
@@ -134,10 +137,10 @@ class IntroScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const QuizScreen(questionIndex: 0)),
+                  MaterialPageRoute(builder: (context) => const QuizScreen(questionIndex: 0, score: 0)),
                 );
               },
-              child: const Text("Play", style: TextStyle(fontSize:25)),
+              child: const Text("Start the Hunt", style: TextStyle(fontSize:30)),
             ),
           ],
         ),
@@ -147,155 +150,227 @@ class IntroScreen extends StatelessWidget {
   }
 }
 
-// List of questions & answers
 const List<Map<String, dynamic>> quizQuestions = [
   {
-    "question": "What do the Banners by the big stairs say?",
-    "options": ["College of Engineering", "Geaux Tigers", "Welcome to LSU", "Innovation Hub"],
-    "correct": "College of Engineering"
+    "question": "Can you find the dark purple chair?",
+    "image": "assets/q1.png", 
+    "targetPosition": {"left": 850.0, "top": 250.0, "width": 200.0, "height": 200.0}
   },
   {
-    "question": "What is the first option listed on the Panera Bread sandwich menu in the PFT?",
-    "options": ["Turkey Club", "BLT", "Roast Beef Sandwich", "Grilled Chicken Sandwich with Avocado"],
-    "correct": "Grilled Chicken Sandwich with Avocado"
+    "question": "Can you find the Baguette in the Penera store?",
+    "image": "assets/q2.png",
+    "targetPosition": {"left": 90.0, "top": 286.0, "width": 200.0, "height": 200.0}
   },
+
   {
-    "question": "What is the room number for the Roy Marrin Auditorium?",
-    "options": [ "1200", "1100", "2100", "3100"],
-    "correct": "1100"
+    "question": "Can you find the MMR sign?",
+    "image": "assets/q3.png",
+    "targetPosition": {"left": 650.0, "top": 50.0, "width": 200.0, "height": 200.0}
   },
+
   {
-    "question": "What does it say on the left door of the Chevron center?",
-    "options": ["Welcome Engineers", "Innovation Hub", "Geaux Communicate", "Future Tigers"],
-    "correct": "Geaux Communicate"
+    "question": "Can you find the green can?",
+    "image": "assets/q4.png",
+    "targetPosition": {"left": 185.0, "top": 320.0, "width": 200.0, "height": 200.0}
   },
+
   {
-    "question": "What is inside room 2215?",
-    "options": [ "A robotics lab", "A computer lab", "A crash test car", "An engineering workshop"],
-    "correct": "A crash test car"
+    "question": "Can you find the pressure screen?",
+    "image": "assets/q5.png",
+    "targetPosition": {"left": 280.0, "top": 90.0, "width": 200.0, "height": 200.0}
   },
+
   {
-    "question": "How many computers are in room 2241?",
-    "options": ["48", "50", "49", "51"],
-    "correct": "51"
-  },
-  {
-    "question": "What floor is the suite for the college of engineering and computer science?",
-    "options": ["3rd floor", "2nd floor", "1st floor", "4th floor"],
-    "correct": "3rd floor"
-  },
-  {
-    "question": "Where is the Dr. William A. Brookshire Student Service Office?",
-    "options": ["behind the big stairs", "In front of the big stairs", "on the roof", "next to the entrance"],
-    "correct": "In front of the big stairs"
-  },
-  {
-    "question": "Which zone has the Dean’s suite of the PFT?",
-    "options": ["Zone 1100", "Zone 1300", "Zone 1200", "Zone 1400"],
-    "correct": "Zone 1200"
-  },
-  {
-    "question": "What year does the TAU BETA PI statue say it was made?",
-    "options": [ "1956", "1942", "2025", "1936"],
-    "correct": "1936"
+    "question": "Can you find the crushed car?",
+    "image": "assets/q6.png",
+    "targetPosition": {"left": 600.0, "top": 250.0, "width": 200.0, "height": 200.0}
   }
 ];
 
 // Quiz Screen
-class QuizScreen extends StatelessWidget {
+class QuizScreen extends StatefulWidget {
   final int questionIndex;
+  final int score;
 
-  const QuizScreen({super.key, required this.questionIndex});
+  const QuizScreen({super.key, required this.questionIndex, required this.score});
 
-  void _navigateToResult(BuildContext context, bool isCorrect) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ResultScreen(
-          isCorrect: isCorrect,
-          questionIndex: questionIndex,
+  @override
+  QuizScreenState createState() => QuizScreenState();
+}
+  class QuizScreenState extends State<QuizScreen> {
+  int timeLeft = 10;
+  Timer? _timer;
+  bool foundObject = false;
+  final AudioPlayer audioPlayer = AudioPlayer();
+  bool isSoundLoaded=false;
+
+  //trace the position
+  GlobalKey targetKey= GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+    _startTimer();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+    getTargetPosition();
+  });
+  }
+
+  void preloadSounds() async {
+    await audioPlayer.setSource(AssetSource('sounds/correct.mp3'));
+    await audioPlayer.setSource(AssetSource('sounds/wrong.mp3'));
+    setState(() {
+      isSoundLoaded = true;
+    });
+  }
+
+  void playSound(String sound) async {
+    await audioPlayer.play(AssetSource(sound));
+  }
+
+  void _startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 10), (timer) {
+      if (timeLeft > 0) {
+        setState(() {
+          timeLeft--;
+        });
+      } else {
+        _goToNextScreen(false);
+      }
+    });
+  }
+
+  //get position
+  void getTargetPosition(){
+    RenderBox renderBox = targetKey.currentContext!.findRenderObject() as RenderBox;
+    Offset position = renderBox.localToGlobal(Offset.zero);
+    print('Target position: left: ${position.dx}, top: ${position.dy}');
+ 
+  }
+
+  void _goToNextScreen(bool won) {
+    _timer?.cancel();
+    int newScore = won ? widget.score + 10 : widget.score;
+
+    if (won) {
+      playSound('sounds/correct.mp3'); 
+    } else {
+      playSound('sounds/wrong.mp3'); 
+    }
+
+    if (widget.questionIndex < quizQuestions.length - 1) {
+      Navigator.pushReplacement(
+        context,        
+        MaterialPageRoute(
+          builder: (context) => QuizScreen(
+            questionIndex: widget.questionIndex + 1,
+            score: newScore,
+          ),
         ),
+      );
+    } else {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ResultScreen(finalScore: newScore),
+        ),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final questionData = quizQuestions[widget.questionIndex];
+    final target = questionData["targetPosition"];
+
+    return Scaffold(
+      appBar: AppBar(title: Text('Find the Object!')),
+      body: Stack(
+        children: [
+          // Background Image
+          Positioned.fill(
+            child: Image.asset(
+              questionData["image"],
+              fit: BoxFit.cover,
+            ),
+          ),
+
+          // Question Text
+          Positioned(
+            top: 40,
+            left: 20,
+            right: 20,
+            child: Container(
+              padding: const EdgeInsets.all(10),
+              color: Colors.black54,
+              child: Text(
+                "${questionData["question"]} (⏳ $timeLeft sec)",
+                style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+
+          // Hidden Object (Clickable)
+          Positioned(
+            left: target["left"],
+            top: target["top"],
+            child: GestureDetector(
+              onTap: () {
+                if (!foundObject) {
+                  setState(() {
+                    foundObject = true;
+                  });
+                  _goToNextScreen(true);
+                }
+              },
+              child: Container(
+                width: target["width"],
+                height: target["height"],
+                color: Colors.transparent,//Colors.transparent, // Invisible tap area
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 
   @override
-  Widget build(BuildContext context) {
-    final questionData = quizQuestions[questionIndex];
-
-    return Scaffold(
-      appBar: AppBar(title: Text('Question ${questionIndex + 1}')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                questionData["question"],
-                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            for (String option in questionData["options"])
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 5.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    _navigateToResult(context, option == questionData["correct"]);
-                  },
-                  child: Text(option),
-                ),
-              ),
-          ],
-        ),
-      ),
-    );
+  void dispose() {
+    audioPlayer.dispose();
+    _timer?.cancel();
+    super.dispose();
   }
 }
 
 // Result Screen
 class ResultScreen extends StatelessWidget {
-  final bool isCorrect;
-  final int questionIndex;
+  final int finalScore;
 
-  const ResultScreen({super.key, required this.isCorrect, required this.questionIndex});
+  const ResultScreen({super.key, required this.finalScore});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(isCorrect ? "Hurray!" : "Oops, Try Again!")),
+      appBar: AppBar(title: const Text("Game Over!")),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              isCorrect ? "🎉 Hurray! You got it right! 🎉" : "❌ Oops, try again! ❌",
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
+              "Your final score: $finalScore",
+              style: const TextStyle(fontSize: 70, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                if (isCorrect) {
-                  if (questionIndex < quizQuestions.length - 1) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => QuizScreen(questionIndex: questionIndex + 1),
-                      ),
-                    );
-                  } else {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const CongratsScreen()),
-                    );
-                  }
-                } else {
-                  Navigator.pop(context);
-                }
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const WelcomeScreen()),
+                );
               },
-              child: Text(isCorrect ? "Next" : "Back"),
+              child: const Text("Play Again?", style: TextStyle(fontSize:35),),
             ),
           ],
         ),
@@ -304,21 +379,3 @@ class ResultScreen extends StatelessWidget {
   }
 }
 
-// Congratulations Screen
-class CongratsScreen extends StatelessWidget {
-  const CongratsScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("You Did It!")),
-      body: const Center(
-        child: Text(
-          "🎉 Congratulations! You completed the LSU Scavenger Hunt! 🎉",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          textAlign: TextAlign.center,
-        ),
-      ),
-    );
-  }
-}
