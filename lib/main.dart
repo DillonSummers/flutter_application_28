@@ -110,25 +110,33 @@ class Mapscreen extends StatelessWidget{
 
 
 // Intro Screen
-class IntroScreen extends StatelessWidget {
+class IntroScreen extends StatelessWidget 
+{
   const IntroScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     return Scaffold(
       appBar: AppBar(title: const Text('Scavenger Hunt of PFT')),
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
+      body: Container
+      (
+        decoration: BoxDecoration
+        (
+          image: DecorationImage
+          (
             image: AssetImage("assets/pft1.jpg"),
             fit: BoxFit.cover, 
           ),
         ),
-      child: Center(
+      child: Center
+      (
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
+          children: 
+          [
+            const Text
+            (
               "Let's start to discover more about PFT!",
               style: TextStyle(
                 fontSize: 70, 
@@ -163,6 +171,7 @@ const List<Map<String, dynamic>> quizQuestions = [
     "image": "assets/q1.png", 
     "targetPosition": {"left": 850.0, "top": 250.0, "width": 200.0, "height": 200.0}
   },
+
   {
     "question": "Can you find the Baguette in the Penera store?",
     "image": "assets/q2.png",
@@ -196,7 +205,8 @@ const List<Map<String, dynamic>> quizQuestions = [
 
 
 // Quiz Screen
-class QuizScreen extends StatefulWidget {
+class QuizScreen extends StatefulWidget 
+{
   final int questionIndex;
   final int score;
 
@@ -205,7 +215,8 @@ class QuizScreen extends StatefulWidget {
   @override
   QuizScreenState createState() => QuizScreenState();
 }
-  class QuizScreenState extends State<QuizScreen> {
+  class QuizScreenState extends State<QuizScreen> 
+  {
   int timeLeft = 10;
   Timer? _timer;
   bool foundObject = false;
@@ -219,12 +230,14 @@ class QuizScreen extends StatefulWidget {
   void initState() {
     super.initState();
     _startTimer();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) 
+    {
     getTargetPosition();
   });
   }
 
-  void preloadSounds() async {
+  void preloadSounds() async 
+  {
     await audioPlayer.setSource(AssetSource('sounds/correct.mp3'));
     await audioPlayer.setSource(AssetSource('sounds/wrong.mp3'));
     setState(() {
@@ -236,13 +249,18 @@ class QuizScreen extends StatefulWidget {
     await audioPlayer.play(AssetSource(sound));
   }
 
-  void _startTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 10), (timer) {
-      if (timeLeft > 0) {
+  void _startTimer() 
+  {
+    _timer = Timer.periodic(const Duration(seconds: 10), (timer) 
+    {
+      if (timeLeft > 0) 
+      {
         setState(() {
           timeLeft--;
         });
-      } else {
+      } 
+      else 
+      {
         _goToNextScreen(false);
       }
     });
@@ -256,7 +274,8 @@ class QuizScreen extends StatefulWidget {
  
   }
 
-  void _goToNextScreen(bool won) {
+  void _goToNextScreen(bool won) 
+  {
     _timer?.cancel();
     int newScore = won ? widget.score + 10 : widget.score;
 
@@ -266,7 +285,8 @@ class QuizScreen extends StatefulWidget {
       playSound('sounds/wrong.mp3'); 
     }
 
-    if (widget.questionIndex < quizQuestions.length - 1) {
+    if (widget.questionIndex < quizQuestions.length - 1) 
+    {
       Navigator.pushReplacement(
         context,        
         MaterialPageRoute(
@@ -276,8 +296,11 @@ class QuizScreen extends StatefulWidget {
           ),
         ),
       );
-    } else {
-      Navigator.pushReplacement(
+    } 
+    else 
+    {
+      Navigator.pushReplacement
+      (
         context,
         MaterialPageRoute(
           builder: (context) => ResultScreen(finalScore: newScore),
@@ -323,16 +346,23 @@ class QuizScreen extends StatefulWidget {
           // Hidden Object (Clickable)
           Positioned(
             left: target["left"],
+
             top: target["top"],
+
             child: GestureDetector(
-              onTap: () {
-                if (!foundObject) {
+
+              onTap: () 
+              {
+                if (!foundObject) 
+                {
                   setState(() {
                     foundObject = true;
-                  });
+                  }
+                  );
                   _goToNextScreen(true);
                 }
               },
+
               child: Container(
                 width: target["width"],
                 height: target["height"],
@@ -346,7 +376,8 @@ class QuizScreen extends StatefulWidget {
   }
 
   @override
-  void dispose() {
+  void dispose() 
+  {
     audioPlayer.dispose();
     _timer?.cancel();
     super.dispose();
@@ -354,25 +385,32 @@ class QuizScreen extends StatefulWidget {
 }
 
 // Result Screen
-class ResultScreen extends StatelessWidget {
+class ResultScreen extends StatelessWidget 
+{
   final int finalScore;
 
   const ResultScreen({super.key, required this.finalScore});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     return Scaffold(
       appBar: AppBar(title: const Text("Game Over!")),
-      body: Center(
-        child: Column(
+      body: Center
+      (
+        child: Column
+        (
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
+          children: 
+          [
+            Text
+            (
               "Your final score: $finalScore",
               style: const TextStyle(fontSize: 70, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
+            ElevatedButton
+            (
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
