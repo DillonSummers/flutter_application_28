@@ -16,9 +16,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'LSU Scavenger Hunt',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
-        useMaterial3: true,
-      ),
+  colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF582C83)), // LSU Purple
+  useMaterial3: true,
+),
       home: const WelcomeScreen(),
     );
   }
