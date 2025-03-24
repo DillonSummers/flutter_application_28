@@ -47,7 +47,7 @@ class WelcomeScreen extends StatelessWidget {
                 "🎤Welcome to the LSU Scavenger Hunt🎤",
                 style: TextStyle(
                   fontFamily: 'OpenSans', // Add this font to pubspec.yaml if using
-                  fontWeight: FontWeight.bold,
+                  fontSize: 70,
                   color: Colors.white, // Ensuring visibility over the image
                 ),
                 textAlign: TextAlign.center,
