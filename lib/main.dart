@@ -203,6 +203,7 @@ class IntroScreen extends StatelessWidget
             (
               "Let's start to discover more about PFT!",
               style: TextStyle(
+                fontFamily: 'OpenSans', // Add this font to pubspec.yaml if using
                 fontSize: 70, 
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
