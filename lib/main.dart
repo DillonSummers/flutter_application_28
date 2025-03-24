@@ -48,6 +48,7 @@ class WelcomeScreen extends StatelessWidget {
                 style: TextStyle(
                   fontFamily: 'OpenSans', // Add this font to pubspec.yaml if using
                   fontSize: 70,
+                  fontWeight: FontWeight.bold,
                   color: Colors.white, // Ensuring visibility over the image
                 ),
                 textAlign: TextAlign.center,
